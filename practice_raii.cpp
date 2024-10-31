@@ -9,34 +9,34 @@
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-class component_a
+class a_component
 {
 public:
-	component_a()
+	a_component()
 	{
-		std::cout << "component_a::ctor() 시작" << std::endl;
+		std::cout << "a_component::ctor() 시작" << std::endl;
 
 
 
-		std::cout << "component_a::ctor()   끝" << std::endl;
+		std::cout << "a_component::ctor()   끝" << std::endl;
 	}
 
-	~component_a()
+	~a_component()
 	{
-		std::cout << "component_a::dtor() 시작" << std::endl;
+		std::cout << "a_component::dtor() 시작" << std::endl;
 
 
 
-		std::cout << "component_a::dtor()   끝" << std::endl;
+		std::cout << "a_component::dtor()   끝" << std::endl;
 	}
 
 	void test()
 	{
-		std::cout << "component_a::test() 시작" << std::endl;
+		std::cout << "a_component::test() 시작" << std::endl;
 
 
 
-		std::cout << "component_a::test()   끝" << std::endl;
+		std::cout << "a_component::test()   끝" << std::endl;
 	}
 };
 
@@ -49,28 +49,28 @@ public:
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-class component_b
+class b_component
 {
 public:
 	std::uint32_t* _buffer_0 { nullptr };
 	std::uint32_t* _buffer_1 { nullptr };
 
 public:
-	component_b()
+	b_component()
 	{
-		std::cout << "component_b::ctor() 시작" << std::endl;
+		std::cout << "b_component::ctor() 시작" << std::endl;
 
 
-		std::cout << "component_b::ctor() new _buffer_0" << std::endl;
+		std::cout << "b_component::ctor() new _buffer_0" << std::endl;
 		_buffer_0 = new (std::nothrow)std::uint32_t[1024];
-		std::cout << "component_b::ctor() _buffer_0 = " << _buffer_0 << std::endl;
+		std::cout << "b_component::ctor() _buffer_0 = " << _buffer_0 << std::endl;
 		try
 		{
 			func();
 
-			std::cout << "component_b::ctor() new _buffer_1" << std::endl;
+			std::cout << "b_component::ctor() new _buffer_1" << std::endl;
 			_buffer_1 = new (std::nothrow)std::uint32_t[1024];
-			std::cout << "component_b::ctor() _buffer_1 = " << _buffer_1 << std::endl;
+			std::cout << "b_component::ctor() _buffer_1 = " << _buffer_1 << std::endl;
 		}
 		catch (...)
 		{
@@ -79,59 +79,59 @@ public:
 			{
 				if (_buffer_0)
 				{
-					std::cout << "component_b::ctor() delete _buffer_0" << std::endl;
+					std::cout << "b_component::ctor() delete _buffer_0" << std::endl;
 					delete _buffer_0;
 				}
 
 
 				if (_buffer_1)
 				{
-					std::cout << "component_b::ctor() delete _buffer_1" << std::endl;
+					std::cout << "b_component::ctor() delete _buffer_1" << std::endl;
 					delete _buffer_1;
 				}
 			}
 			//-------------------------------------------------------------------
 
 
-			std::cout << "component_b::ctor() 다시 예외 발생 시키기" << std::endl;
-			throw std::runtime_error("Exception in component_b::ctor()");
+			std::cout << "b_component::ctor() 다시 예외 발생 시키기" << std::endl;
+			throw std::runtime_error("Exception in b_component::ctor()");
 		}
 
 
 
 		// 이 객체는 온전히 생성이 안되었으므로, 소멸자가 호출되지 않음.
 
-		std::cout << "component_b::ctor()   끝" << std::endl;
+		std::cout << "b_component::ctor()   끝" << std::endl;
 	}
 
-	~component_b()
+	~b_component()
 	{
-		// component_b::dtor()은 호출 안됨
-		// component_a::dtor()은 호출 됨
+		// b_component::dtor()은 호출 안됨
+		// a_component::dtor()은 호출 됨
 
 
-		std::cout << "component_b::dtor() 시작" << std::endl;
+		std::cout << "b_component::dtor() 시작" << std::endl;
 
 
 		delete _buffer_0;
 		delete _buffer_1;
 
 
-		std::cout << "component_b::dtor()   끝" << std::endl;
+		std::cout << "b_component::dtor()   끝" << std::endl;
 	}
 
 	void func()
 	{
-		std::cout << "component_b::func() 시작" << std::endl;
+		std::cout << "b_component::func() 시작" << std::endl;
 
 
 
-		std::cout << "component_b::func() 예외 발생 시키기" << std::endl;
-		throw std::runtime_error("Exception in component_b::func()");
+		std::cout << "b_component::func() 예외 발생 시키기" << std::endl;
+		throw std::runtime_error("Exception in b_component::func()");
 
 
 
-		std::cout << "component_b::func()   끝" << std::endl;
+		std::cout << "b_component::func()   끝" << std::endl;
 	}
 };
 
@@ -144,34 +144,34 @@ public:
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-class component_c
+class c_component
 {
 public:
-	component_c()
+	c_component()
 	{
-		std::cout << "component_c::ctor() 시작" << std::endl;
+		std::cout << "c_component::ctor() 시작" << std::endl;
 
 
 
-		std::cout << "component_c::ctor()   끝" << std::endl;
+		std::cout << "c_component::ctor()   끝" << std::endl;
 	}
 
-	~component_c()
+	~c_component()
 	{
-		std::cout << "component_c::dtor() 시작" << std::endl;
+		std::cout << "c_component::dtor() 시작" << std::endl;
 
 
 
-		std::cout << "component_c::dtor()   끝" << std::endl;
+		std::cout << "c_component::dtor()   끝" << std::endl;
 	}
 
 	void test()
 	{
-		std::cout << "component_c::test() 시작" << std::endl;
+		std::cout << "c_component::test() 시작" << std::endl;
 
 
 
-		std::cout << "component_c::test()   끝" << std::endl;
+		std::cout << "c_component::test()   끝" << std::endl;
 	}
 };
 
@@ -184,39 +184,39 @@ public:
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-class module_engine
+class engine_module
 {
 public:
-	component_a _a;
-	component_b _b;
-	component_c _c;
+	a_component _a;
+	b_component _b;
+	c_component _c;
 
 public:
-	module_engine()
+	engine_module()
 	{
-		std::cout << "module_engine::ctor() 시작" << std::endl;
+		std::cout << "engine_module::ctor() 시작" << std::endl;
 
 
 
-		std::cout << "module_engine::ctor()   끝" << std::endl;
+		std::cout << "engine_module::ctor()   끝" << std::endl;
 	}
 
-	~module_engine()
+	~engine_module()
 	{
-		std::cout << "module_engine::dtor() 시작" << std::endl;
+		std::cout << "engine_module::dtor() 시작" << std::endl;
 
 
 
-		std::cout << "module_engine::dtor()   끝" << std::endl;
+		std::cout << "engine_module::dtor()   끝" << std::endl;
 	}
 
 	void func()
 	{
-		std::cout << "module_engine::func() 시작" << std::endl;
+		std::cout << "engine_module::func() 시작" << std::endl;
 
 
 
-		std::cout << "module_engine::func()   끝" << std::endl;
+		std::cout << "engine_module::func()   끝" << std::endl;
 	}
 };
 
@@ -234,7 +234,7 @@ void test()
 
 	try
 	{
-		module_engine e;
+		engine_module e;
 
 		e.func();
 	}
@@ -275,17 +275,17 @@ int main()
 
 시작
 ::test() 시작
-component_a::ctor() 시작
-component_a::ctor()   끝
-component_b::ctor() 시작
-component_b::ctor() new _buffer_0
-component_b::ctor() _buffer_0 = 0000028C411E7790
-component_b::func() 시작
-component_b::func() 예외 발생 시키기
-component_b::ctor() delete _buffer_0
-component_b::ctor() 다시 예외 발생 시키기
-component_a::dtor() 시작
-component_a::dtor()   끝
+a_component::ctor() 시작
+a_component::ctor()   끝
+b_component::ctor() 시작
+b_component::ctor() new _buffer_0
+b_component::ctor() _buffer_0 = 0000023E6B667790
+b_component::func() 시작
+b_component::func() 예외 발생 시키기
+b_component::ctor() delete _buffer_0
+b_component::ctor() 다시 예외 발생 시키기
+a_component::dtor() 시작
+a_component::dtor()   끝
 ::test() 예외 발생
 ::test()   끝
 끝
@@ -293,5 +293,5 @@ component_a::dtor()   끝
 */
 
 /*
-* component_c의 생성자와 소멸자는 호출되지 않음.
+* c_component의 생성자와 소멸자는 호출되지 않음.
 */
