@@ -106,7 +106,8 @@ public:
 
 	~component_b()
 	{
-		// 호출 안됨
+		// component_b::dtor()은 호출 안됨
+		// component_a::dtor()은 호출 됨
 
 
 		std::cout << "component_b::dtor() 시작" << std::endl;
@@ -117,10 +118,6 @@ public:
 
 
 		std::cout << "component_b::dtor()   끝" << std::endl;
-
-
-
-		// component_a::dtor()은 호출 됨
 	}
 
 	void func()
