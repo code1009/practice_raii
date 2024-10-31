@@ -52,9 +52,8 @@ public:
 class component_b
 {
 public:
-	std::uint8_t* _buffer_0 { nullptr };
-	std::uint8_t* _buffer_1 { nullptr };
-
+	std::uint32_t* _buffer_0 { nullptr };
+	std::uint32_t* _buffer_1 { nullptr };
 
 public:
 	component_b()
@@ -62,18 +61,19 @@ public:
 		std::cout << "component_b::ctor() 시작" << std::endl;
 
 
-		_buffer_0 = new (std::nothrow)std::uint8_t[1024];
+		std::cout << "component_b::ctor() new _buffer_0" << std::endl;
+		_buffer_0 = new (std::nothrow)std::uint32_t[1024];
+		std::cout << "component_b::ctor() _buffer_0 = " << _buffer_0 << std::endl;
 		try
 		{
 			func();
 
-			_buffer_1 = new (std::nothrow)std::uint8_t[1024];
+			std::cout << "component_b::ctor() new _buffer_1" << std::endl;
+			_buffer_1 = new (std::nothrow)std::uint32_t[1024];
+			std::cout << "component_b::ctor() _buffer_1 = " << _buffer_1 << std::endl;
 		}
 		catch (...)
 		{
-			// 이 객체는 온전히 생성이 안되었으므로, 소멸자가 호출되지 않음.
-
-
 			//-------------------------------------------------------------------
 			// RAII관점에서 여기서 이 객체에 대한 리소스를 정리 해야 함!!!
 			{
@@ -98,6 +98,8 @@ public:
 		}
 
 
+
+		// 이 객체는 온전히 생성이 안되었으므로, 소멸자가 호출되지 않음.
 
 		std::cout << "component_b::ctor()   끝" << std::endl;
 	}
@@ -279,6 +281,8 @@ int main()
 component_a::ctor() 시작
 component_a::ctor()   끝
 component_b::ctor() 시작
+component_b::ctor() new _buffer_0
+component_b::ctor() _buffer_0 = 0000028C411E7790
 component_b::func() 시작
 component_b::func() 예외 발생 시키기
 component_b::ctor() delete _buffer_0
