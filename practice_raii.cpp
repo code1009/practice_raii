@@ -1,6 +1,7 @@
 ﻿/////////////////////////////////////////////////////////////////////////////
 //===========================================================================
 #include <iostream>
+#include <memory>
 #include <stdexcept>
 
 
@@ -53,24 +54,33 @@ class b_component
 {
 public:
 	std::uint32_t* _buffer_0 { nullptr };
-	std::uint32_t* _buffer_1 { nullptr };
+	std::unique_ptr<std::uint32_t> _buffer_1;
+	std::uint32_t* _buffer_2 { nullptr };
 
 public:
 	b_component()
 	{
 		std::cout << "b_component::ctor() 시작" << std::endl;
 
+		// RAII(Resource Acquisition Is Initialization) 형태로 클래스 작성시
+		// 직접적으로 new를 사용하명 아래와 같은 불편이 있음으로
+		// std::unique_ptr, std::shared_ptr를 사용하는 것이 좋음.
 
 		std::cout << "b_component::ctor() new _buffer_0" << std::endl;
 		_buffer_0 = new (std::nothrow)std::uint32_t[1024];
 		std::cout << "b_component::ctor() _buffer_0 = " << _buffer_0 << std::endl;
+
+		std::cout << "b_component::ctor() new _buffer_1" << std::endl;
+		_buffer_1 = std::make_unique<std::uint32_t>(1024);
+		std::cout << "b_component::ctor() _buffer_1 = " << _buffer_1.get() << std::endl;
+
 		try
 		{
 			func();
 
-			std::cout << "b_component::ctor() new _buffer_1" << std::endl;
-			_buffer_1 = new (std::nothrow)std::uint32_t[1024];
-			std::cout << "b_component::ctor() _buffer_1 = " << _buffer_1 << std::endl;
+			std::cout << "b_component::ctor() new _buffer_2" << std::endl;
+			_buffer_2 = new (std::nothrow)std::uint32_t[1024];
+			std::cout << "b_component::ctor() _buffer_2 = " << _buffer_2 << std::endl;
 		}
 		catch (...)
 		{
@@ -83,11 +93,12 @@ public:
 					delete _buffer_0;
 				}
 
+				// _buffer_1.reset(); // std::unique_ptr는 자동으로 해제됨.
 
-				if (_buffer_1)
+				if (_buffer_2)
 				{
-					std::cout << "b_component::ctor() delete _buffer_1" << std::endl;
-					delete _buffer_1;
+					std::cout << "b_component::ctor() delete _buffer_2" << std::endl;
+					delete _buffer_2;
 				}
 			}
 			//-------------------------------------------------------------------
@@ -114,7 +125,7 @@ public:
 
 
 		delete _buffer_0;
-		delete _buffer_1;
+		delete _buffer_2;
 
 
 		std::cout << "b_component::dtor()   끝" << std::endl;
@@ -279,7 +290,9 @@ a_component::ctor() 시작
 a_component::ctor()   끝
 b_component::ctor() 시작
 b_component::ctor() new _buffer_0
-b_component::ctor() _buffer_0 = 0000023E6B667790
+b_component::ctor() _buffer_0 = 0000021E9FCC7790
+b_component::ctor() new _buffer_1
+b_component::ctor() _buffer_1 = 0000021E9FCB7490
 b_component::func() 시작
 b_component::func() 예외 발생 시키기
 b_component::ctor() delete _buffer_0
