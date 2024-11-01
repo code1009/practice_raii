@@ -45,17 +45,14 @@ public:
 
 
 
-
-
-
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
 class b_component
 {
 public:
-	std::uint32_t* _buffer_0 { nullptr };
+	std::uint32_t*                 _buffer_0 { nullptr };
 	std::unique_ptr<std::uint32_t> _buffer_1;
-	std::uint32_t* _buffer_2 { nullptr };
+	std::uint32_t*                 _buffer_2 { nullptr };
 
 public:
 	b_component()
@@ -146,9 +143,6 @@ public:
 		std::cout << "b_component::func()   끝" << std::endl;
 	}
 };
-
-
-
 
 
 
