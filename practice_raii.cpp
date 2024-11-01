@@ -65,6 +65,7 @@ public:
 		// RAII(Resource Acquisition Is Initialization) 형태로 클래스 작성시
 		// 직접적으로 new를 사용하명 아래와 같은 불편이 있음으로
 		// std::unique_ptr, std::shared_ptr를 사용하는 것이 좋음.
+		// 가급적 new 사용을 안하는 것이 좋다.
 
 		std::cout << "b_component::ctor() new _buffer_0" << std::endl;
 		_buffer_0 = new (std::nothrow)std::uint32_t[1024];
