@@ -304,26 +304,28 @@ a_component::dtor()   끝
 * c_component의 생성자와 소멸자는 호출되지 않음.
 */
 
-/*
+#if 0
+
 typedef struct  _test_packed_struct_t
 {
 	unsigned short int e0;
 	unsigned short int e1;
-	unsigned long  int e2;
+	unsigned long  int e2 ;
 }
 __attribute__((__packed__)) test_packed_struct_t;
 
 
 typedef struct  _test_struct_t
 {
-	unsigned short int     e0;
+	unsigned short int    e0;
+//	unsigned short int    reserved; // 추가시 2바이트 패딩되어서 sDram에서도 DABORT 발생 안함
 	test_packed_struct_t  e1;
 }
 test_struct_t;
 
 void test_packed_struct_function(test_packed_struct_t* p)
 {
-	if (p->e2 == 0xffffffff)
+	if (p->e2 == 0xffffffff) // <!-- DABORT 발생
 	{
 		console_printfln("p->e1.e2==0xffffffff");
 	}
@@ -339,10 +341,16 @@ void test_function(void)
 	test_struct_t* p;
 
 
-	console_printfln("sizeof(test_struct_t) = %u", sizeof(i));
+	p = &i;                            // DABORT 발생 안함 (sram)
+	p = (test_struct_t*)(0x80D00000U); // DABORT 발생 함   (sDram)
 	memset(&i, 0xff, sizeof(i));
-	p = &i;
+	memset(p, 0xff, sizeof(i));
+
+
+	console_printfln("sizeof(test_struct_t) = %u", sizeof(i));
+
+
 	test_packed_struct_function(&p->e1);
 }
 
-*/
+#endif
