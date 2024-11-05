@@ -303,3 +303,46 @@ a_component::dtor()   끝
 /*
 * c_component의 생성자와 소멸자는 호출되지 않음.
 */
+
+/*
+typedef struct  _test_packed_struct_t
+{
+	unsigned short int e0;
+	unsigned short int e1;
+	unsigned long  int e2;
+}
+__attribute__((__packed__)) test_packed_struct_t;
+
+
+typedef struct  _test_struct_t
+{
+	unsigned short int     e0;
+	test_packed_struct_t  e1;
+}
+test_struct_t;
+
+void test_packed_struct_function(test_packed_struct_t* p)
+{
+	if (p->e2 == 0xffffffff)
+	{
+		console_printfln("p->e1.e2==0xffffffff");
+	}
+	else
+	{
+		console_printfln("p->e1.e2!=0xffffffff");
+	}
+}
+
+void test_function(void)
+{
+	test_struct_t i;
+	test_struct_t* p;
+
+
+	console_printfln("sizeof(test_struct_t) = %u", sizeof(i));
+	memset(&i, 0xff, sizeof(i));
+	p = &i;
+	test_packed_struct_function(&p->e1);
+}
+
+*/
